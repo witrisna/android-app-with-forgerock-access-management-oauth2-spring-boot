@@ -1,4 +1,4 @@
-# Android App with ForgeRock Access Management and Spring Boot
+# Android App with ForgeRock Access Management, OAuth 2.0 and Spring Boot
 
 This respository shows an example of Android app using the ForgeRock Android SDK to securely access an API that is implemented with Spring Boot
 Please read [Implementing an Android App with ForgeRock Access management, OAuth 2.0, and Spring Boot](https://www.forgerock.com) to see more detail about this example background.
