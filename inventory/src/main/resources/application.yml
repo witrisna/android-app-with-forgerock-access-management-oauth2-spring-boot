@@ -1,0 +1,11 @@
+server:
+  port: 9001
+
+# OAuth2 Configuration
+security:
+  oauth2:
+    resource:
+      jwk:
+        key-set-uri: ${KEY_SET_URI:http://openam.example.com:8081/openam/oauth2/connect/jwk_uri}
+      id: SpringBoot
+

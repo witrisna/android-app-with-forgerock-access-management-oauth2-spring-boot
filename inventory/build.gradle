@@ -1,0 +1,39 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.0-SNAPSHOT'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+}
+
+group = 'com.forgerock.demo'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+ext {
+	set('springCloudVersion', "2020.0.0-SNAPSHOT")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
+	//Currently Spring cloud use spring-security-oauth2:2.3.4.RELEASE, there is a issue of handling enc
+	//Here is the fix https://github.com/spring-projects/spring-security-oauth/commit/1e5536af65d76696908fc277432f0399e31acc33
+	//skip unsupported public key use (enc) without discarding the entire set
+	//And has been applied to org.springframework.security.oauth:spring-security-oauth2:2.3.5.RELEASE
+	implementation 'org.springframework.security.oauth:spring-security-oauth2:2.3.5.RELEASE'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+test {
+	useJUnitPlatform()
+}
