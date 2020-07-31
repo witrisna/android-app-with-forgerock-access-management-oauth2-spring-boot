@@ -3,6 +3,9 @@
     android:sharedUserId="org.forgerock.demo.singleSignOn"
     package="org.forgerock.demoapplication">
 
+    <!--
+        The usesCleartextTraffic for testing or demo purpose only.
+    -->
     <application
         android:name=".DemoApplication"
         android:allowBackup="true"

@@ -25,6 +25,8 @@ import okhttp3.Response;
 
 public class DemoActivity extends AppCompatActivity {
 
+    //The product endpoint is running in localhost, for Android emulator to access localhost use 10.0.2.2
+    public static final String PRODUCT_ENDPOINT = "http://10.0.2.2:9001/products";
     private TextView content;
 
     @Override
@@ -65,7 +67,7 @@ public class DemoActivity extends AppCompatActivity {
             builder.addInterceptor(new AccessTokenInterceptor());
 
             OkHttpClient client = builder.build();
-            Request request = new Request.Builder().url("http://10.0.2.2:9001/products").build();
+            Request request = new Request.Builder().url(PRODUCT_ENDPOINT).build();
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -74,17 +76,17 @@ public class DemoActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                        if (response.isSuccessful()) {
-                            try {
-                                show(response.body().string());
-                            } catch (IOException e) {
-                                show(e.getMessage());
-                            }
-                        } else {
-                            show("Code:" + response.code() +
-                                    "Body:" +
-                                    response.body().string());
+                    if (response.isSuccessful()) {
+                        try {
+                            show(response.body().string());
+                        } catch (IOException e) {
+                            show(e.getMessage());
                         }
+                    } else {
+                        show("Code:" + response.code() +
+                                "Body:" +
+                                response.body().string());
+                    }
                 }
             });
 
@@ -97,13 +99,11 @@ public class DemoActivity extends AppCompatActivity {
     }
 
     private void show(JSONObject text) {
-        runOnUiThread(() -> {
-            try {
-                content.setText(text.toString(4));
-            } catch (JSONException e) {
-                //ignore
-            }
-        });
+        try {
+            show(text.toString(4));
+        } catch (JSONException e) {
+            //ignore
+        }
     }
 
 
